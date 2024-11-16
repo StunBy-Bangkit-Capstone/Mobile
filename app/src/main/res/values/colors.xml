@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+
+    <color name="colorPrimary">#19AA6B</color>
+    <color name="colorPrimaryVariant">#128A56</color> <!-- Warna yang sedikit lebih gelap dari green_700 -->
+    <color name="colorOnPrimary">#FFFFFF</color> <!-- Warna kontras untuk teks/icon di atas warna utama -->
+
+    <color name="colorSecondary">#51FFB3</color>
+    <color name="colorSecondaryVariant">#39CB8E</color> <!-- Warna yang sedikit lebih gelap dari green_400 -->
+    <color name="colorOnSecondary">#000000</color> <!-- Warna kontras untuk teks/icon di atas warna sekunder -->
+
+
+</resources>
