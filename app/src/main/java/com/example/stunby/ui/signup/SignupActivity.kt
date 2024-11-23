@@ -1,7 +1,9 @@
 package com.example.stunby.ui.signup
 
+import android.app.DatePickerDialog
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.view.WindowInsets
 import android.view.WindowManager
@@ -16,6 +18,7 @@ import com.example.storyapp.view.signup.SignupViewModel
 import com.example.stunby.R
 import com.example.stunby.databinding.ActivitySignupBinding
 import com.example.stunby.ui.ViewModelFactory
+import java.util.Calendar
 
 class SignupActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySignupBinding
@@ -92,7 +95,15 @@ class SignupActivity : AppCompatActivity() {
             val name = binding.edRegisterName.text.toString()
             val email = binding.edRegisterEmail.text.toString()
             val password = binding.edRegisterPassword.text.toString()
-            val gender = "pria"
+            val confirmPassword = binding.edRegisterConfirmPassword.text.toString()
+            val birthDay = binding.edRegisterDob.text.toString()
+            val genderId = binding.genderRadioGroup.checkedRadioButtonId
+            val genderString = when (genderId) {
+                R.id.rb_male -> getString(R.string.male)
+                R.id.rb_female -> getString(R.string.female)
+                else -> ""
+            }
+
             when {
                 name.isEmpty() -> {
                     binding.nameEditTextLayout.error = "Masukkan nama"
@@ -103,13 +114,38 @@ class SignupActivity : AppCompatActivity() {
                 password.isEmpty() -> {
                     binding.passwordEditTextLayout.error = "Masukkan password"
                 }
+                confirmPassword.isEmpty() -> {
+                    binding.confirmPasswordEditTextLayout.error = "Konfirmasi password"
+                }
+                password != confirmPassword -> {
+                    binding.confirmPasswordEditTextLayout.error = "Password tidak cocok"
+                }
                 password.length < 8 -> {
                     binding.passwordEditTextLayout.error = "Password minimal 8 karakter"
                 }
+                birthDay.isEmpty() -> {
+                    binding.dobEditTextLayout.error = "Masukkan tanggal lahir"
+                }
+                genderString.isEmpty() -> {
+                    Toast.makeText(this, "Pilih jenis kelamin", Toast.LENGTH_SHORT).show()
+                }
                 else -> {
-                    viewModel.register(name,gender, email, password)
+                    viewModel.register(email, name, birthDay, genderString, password)
                 }
             }
+        }
+
+        // Show date picker when clicking on DOB field
+        binding.edRegisterDob.setOnClickListener {
+            val calendar = Calendar.getInstance()
+            val year = calendar.get(Calendar.YEAR)
+            val month = calendar.get(Calendar.MONTH)
+            val day = calendar.get(Calendar.DAY_OF_MONTH)
+
+            DatePickerDialog(this, { _, selectedYear, selectedMonth, selectedDay ->
+                val formattedDate = "$selectedDay/${selectedMonth + 1}/$selectedYear"
+                binding.edRegisterDob.setText(formattedDate)
+            }, year, month, day).show()
         }
     }
 }

@@ -16,11 +16,11 @@ class SignupViewModel(private val repository: UserRepository) : ViewModel() {
     val signupResult: LiveData<Result<RegisterResponse>> = _signupResult
 
 
-    fun register(name: String,gender: String ,email: String, password: String){
+    fun register(email: String,name: String,birth_day: String,gender: String , password: String){
         _isLoading.value = true
         viewModelScope.launch {
             try {
-                val response = repository.register(name,gender,email,password)
+                val response = repository.register(email,name,birth_day,gender,password)
                 _signupResult.value = Result.success(response)
             }catch (e: Exception){
                 _signupResult.value = Result.failure(e)

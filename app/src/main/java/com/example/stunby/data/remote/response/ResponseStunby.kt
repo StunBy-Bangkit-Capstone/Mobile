@@ -55,8 +55,8 @@ data class DataRegis(
 
 data class LoginResponse(
 
-	@field:SerializedName("dataLogin")
-	val dataLogin: DataLogin? = null,
+	@field:SerializedName("data")
+	val data: String,
 
 	@field:SerializedName("error")
 	val error: Boolean,
@@ -65,26 +65,33 @@ data class LoginResponse(
 	val message: String
 )
 
-data class DataLogin(
+data class UserResponse(
+	@field:SerializedName("data")
+	val dataUsers: Data ,
 
-	@field:SerializedName("birth_day")
-	val birthDay: String? = null,
+	@field:SerializedName("error")
+	val error: Boolean,
 
-	@field:SerializedName("foto_url")
-	val fotoUrl: String? = null,
+	@field:SerializedName("message")
+	val message: String
+)
 
-	@field:SerializedName("full_name")
-	val fullName: String? = null,
-
-	@field:SerializedName("gender")
-	val gender: String? = null,
-
+data class Data(
 	@field:SerializedName("id")
-	val id: String? = null,
+	val id: String,
 
 	@field:SerializedName("email")
-	val email: String? = null,
+	val email: String,
 
-	@field:SerializedName("token")
-	val token: String? = null
+	@field:SerializedName("full_name")
+	val fullName: String,
+
+	@field:SerializedName("gender")
+	val gender: String,
+
+	@field:SerializedName("birth_day")
+	val birthDay: String,
+
+	@field:SerializedName("foto_url")
+	val fotoUrl: String,
 )

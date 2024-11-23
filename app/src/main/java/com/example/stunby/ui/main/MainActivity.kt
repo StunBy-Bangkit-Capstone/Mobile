@@ -5,9 +5,13 @@ import android.os.Bundle
 import android.util.Log
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.ui.setupWithNavController
+import com.example.stunby.R
 import com.example.stunby.databinding.ActivityMainBinding
 import com.example.stunby.ui.ViewModelFactory
 import com.example.stunby.ui.welcome.WelcomeActivity
+import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : AppCompatActivity() {
     private val viewModel by viewModels<MainViewModel> {
@@ -23,8 +27,6 @@ class MainActivity : AppCompatActivity() {
             setContentView(binding.root)
 
             viewModel.getSession().observe(this) { user ->
-                val token = user.token
-                Log.d("MainActivity", "Token: $token")
                 if (!user.isLogin) {
                     startActivity(Intent(this, WelcomeActivity::class.java))
                     finish()
@@ -33,6 +35,11 @@ class MainActivity : AppCompatActivity() {
         } catch (e: Exception) {
             Log.e("MainActivity", "Error in onCreate: ${e.message}", e)
         }
+
+        val navView: BottomNavigationView = binding.navView
+        val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment_activity_main) as NavHostFragment
+        val navController = navHostFragment.navController
+        navView.setupWithNavController(navController)
 
     }
 }

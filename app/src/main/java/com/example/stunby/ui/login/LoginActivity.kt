@@ -3,6 +3,7 @@ package com.example.stunby.ui.login
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.WindowInsets
 import android.view.WindowManager
 import android.widget.Toast
@@ -42,8 +43,9 @@ class LoginActivity : AppCompatActivity() {
                 onSuccess = { response ->
                     if (!response.error) {
                         val email = binding.edLoginEmail.text.toString()
-                        val token= response.dataLogin?.token
-                        viewModel.saveSession(UserModel(email, token.toString()))
+                        val token= response.data
+                        Log.d("LoginActivity", "Token: $token")
+                        viewModel.saveSession(UserModel(token.toString()))
                         AlertDialog.Builder(this).apply {
                             setTitle(getString(R.string.sukses_login))
                             setMessage(
