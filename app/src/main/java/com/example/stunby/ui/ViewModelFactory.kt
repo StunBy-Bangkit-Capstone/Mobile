@@ -8,9 +8,14 @@ import com.example.storyapp.di.Injection
 import com.example.storyapp.view.login.LoginViewModel
 import com.example.storyapp.view.signup.SignupViewModel
 import com.example.stunby.data.UserRepository
+import com.example.stunby.ui.article.ArticleViewModel
+import com.example.stunby.ui.history.HistoryViewModel
+import com.example.stunby.ui.home.HomeViewModel
 import com.example.stunby.ui.main.MainViewModel
+import com.example.stunby.ui.profile.ProfileViewModel
+import com.example.stunby.ui.scan.ScanViewModel
 
-class ViewModelFactory(private val repository: UserRepository, private val context: Context) : ViewModelProvider.NewInstanceFactory() {
+class ViewModelFactory(private val repository: UserRepository) : ViewModelProvider.NewInstanceFactory() {
 
     @Suppress("UNCHECKED_CAST")
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
@@ -24,6 +29,21 @@ class ViewModelFactory(private val repository: UserRepository, private val conte
             modelClass.isAssignableFrom(SignupViewModel::class.java) -> {
                 SignupViewModel(repository) as T
             }
+            modelClass.isAssignableFrom(HomeViewModel::class.java) -> {
+                HomeViewModel(repository) as T
+            }
+            modelClass.isAssignableFrom(HistoryViewModel::class.java) -> {
+                HistoryViewModel(repository) as T
+            }
+            modelClass.isAssignableFrom(ScanViewModel::class.java) -> {
+                ScanViewModel(repository) as T
+            }
+            modelClass.isAssignableFrom(ProfileViewModel::class.java) -> {
+                ProfileViewModel(repository) as T
+            }
+            modelClass.isAssignableFrom(ArticleViewModel::class.java) -> {
+                ArticleViewModel(repository) as T
+            }
             else -> throw IllegalArgumentException("Unknown ViewModel class: " + modelClass.name)
         }
     }
@@ -36,7 +56,7 @@ class ViewModelFactory(private val repository: UserRepository, private val conte
         fun getInstance(context: Context): ViewModelFactory {
             if (INSTANCE == null) {
                 synchronized(ViewModelFactory::class.java) {
-                    INSTANCE = ViewModelFactory(Injection.provideRepository(context), context)
+                    INSTANCE = ViewModelFactory(Injection.provideRepository(context))
                 }
             }
             return INSTANCE as ViewModelFactory

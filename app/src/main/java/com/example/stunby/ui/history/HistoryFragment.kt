@@ -6,13 +6,18 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import com.example.stunby.databinding.FragmentHistoryBinding
+import com.example.stunby.ui.ViewModelFactory
+import com.example.stunby.ui.home.HomeViewModel
 
 class HistoryFragment : Fragment() {
 
     private var _binding: FragmentHistoryBinding? = null
-
+    private val viewModel by viewModels<HistoryViewModel> {
+        ViewModelFactory.getInstance(requireContext())
+    }
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!
@@ -22,14 +27,13 @@ class HistoryFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val historyViewModel =
-            ViewModelProvider(this).get(HistoryViewModel::class.java)
+
 
         _binding = FragmentHistoryBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
         val textView: TextView = binding.textNotifications
-        historyViewModel.text.observe(viewLifecycleOwner) {
+        viewModel.text.observe(viewLifecycleOwner) {
             textView.text = it
         }
         return root

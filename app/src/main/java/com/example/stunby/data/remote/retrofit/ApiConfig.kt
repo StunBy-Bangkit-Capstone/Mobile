@@ -8,7 +8,8 @@ import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 
 object ApiConfig {
-    private const val BASE_URL = "https://b5eb-140-213-123-210.ngrok-free.app/api/v1/"
+    private const val BASE_URL = "https://stunby-app-567211939480.asia-southeast2.run.app/api/v1/"
+
 
     fun getApiService(token: String? = null): ApiService {
         val loggingInterceptor = HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)

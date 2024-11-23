@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import com.example.stunby.R
 import com.example.stunby.databinding.FragmentArticleBinding
+import com.example.stunby.ui.ViewModelFactory
 import com.example.stunby.ui.home.HomeViewModel
 
 class ArticleFragment : Fragment() {
@@ -17,13 +18,14 @@ class ArticleFragment : Fragment() {
 
     private val binding get() = _binding!!
 
+    private val viewModel by viewModels<ArticleViewModel> {
+        ViewModelFactory.getInstance(requireContext())
+    }
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val homeViewModel =
-            ViewModelProvider(this).get(HomeViewModel::class.java)
 
         _binding = FragmentArticleBinding.inflate(inflater, container, false)
         val root: View = binding.root

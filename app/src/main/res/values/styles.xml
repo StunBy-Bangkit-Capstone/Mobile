@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="ActiveIndicatorStyle">
+        <item name="android:layout_width">4dp</item> <!-- Lebar indikator -->
+        <item name="android:layout_height">match_parent</item> <!-- Tinggi indikator -->
+        <item name="android:backgroundTint">@color/colorOnSecondary</item> <!-- Warna primary -->
+        <item name="android:textColor">@color/colorOnSecondary</item> <!-- Warna primary -->
+        <item name="android:layout_gravity">start</item> <!-- Posisi indikator (kiri) -->
+        <item name="itemIconTint">@color/colorOnSecondary</item>
+    </style>
+</resources>

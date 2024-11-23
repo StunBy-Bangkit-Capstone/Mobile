@@ -36,7 +36,6 @@ android {
     buildFeatures {
         viewBinding = true
         buildConfig = true
-
     }
 }
 
@@ -67,5 +66,6 @@ dependencies {
     implementation(libs.androidx.camera.view)
 
     implementation ("com.google.android.material:material:1.12.0")
+    implementation ("com.github.PhilJay:MPAndroidChart:v3.1.0")
 
 }

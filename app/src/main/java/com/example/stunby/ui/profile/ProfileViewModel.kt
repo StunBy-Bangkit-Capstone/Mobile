@@ -1,4 +1,4 @@
-package com.example.stunby.ui.article
+package com.example.stunby.ui.profile
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -9,16 +9,21 @@ import com.example.stunby.data.remote.response.Data
 import com.example.stunby.data.remote.response.UserResponse
 import kotlinx.coroutines.launch
 
-class ArticleViewModel (private val repository: UserRepository) : ViewModel() {
+class ProfileViewModel (private val repository: UserRepository) : ViewModel() {
 
     private val _user = MutableLiveData<Data>()
     val user: LiveData<Data> get() = _user
 
-    private val _text = MutableLiveData<String>().apply {
-        value = "This is notifications Fragment"
-    }
-    val text: LiveData<String> = _text
 
+    init {
+        getUser()
+    }
+
+    fun logout() {
+        viewModelScope.launch {
+            repository.logout()
+        }
+    }
 
     fun getUser() {
         viewModelScope.launch {
@@ -27,6 +32,3 @@ class ArticleViewModel (private val repository: UserRepository) : ViewModel() {
         }
     }
 }
-
-
-

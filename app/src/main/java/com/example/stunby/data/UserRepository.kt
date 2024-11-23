@@ -3,8 +3,10 @@ package com.example.stunby.data
 import androidx.lifecycle.LiveData
 import com.example.stunby.data.pref.UserModel
 import com.example.stunby.data.pref.UserPreference
+import com.example.stunby.data.remote.response.Data
 import com.example.stunby.data.remote.response.LoginResponse
 import com.example.stunby.data.remote.response.RegisterResponse
+import com.example.stunby.data.remote.response.UserResponse
 import com.example.stunby.data.remote.retrofit.ApiService
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
@@ -17,8 +19,8 @@ class UserRepository private constructor(
     private val apiService: ApiService,
     private val userPreference: UserPreference
 ) {
-    suspend fun register(name: String, gender: String, email: String, password: String): RegisterResponse {
-        return apiService.register(name,gender, email, password)
+    suspend fun register(email: String,name: String,birth_day: String , gender: String,  password: String): RegisterResponse {
+        return apiService.register(email,name,birth_day,gender, password)
     }
 
     suspend fun login(email: String, password: String): LoginResponse {
@@ -39,6 +41,10 @@ class UserRepository private constructor(
 
     private fun getToken(): String {
         return runBlocking { userPreference.getSession().first().token }
+    }
+
+    suspend fun getUser(): Data {
+        return apiService.getUser("Bearer ${getToken()}").dataUsers
     }
 
 
