@@ -6,13 +6,14 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.stunby.data.UserRepository
 import com.example.stunby.data.remote.response.Data
+import com.example.stunby.data.remote.response.DataUser
 import com.example.stunby.data.remote.response.UserResponse
 import kotlinx.coroutines.launch
 
 class ProfileViewModel (private val repository: UserRepository) : ViewModel() {
 
-    private val _user = MutableLiveData<Data>()
-    val user: LiveData<Data> get() = _user
+    private val _user = MutableLiveData<DataUser>()
+    val user: LiveData<DataUser> get() = _user
 
 
     init {

@@ -99,8 +99,8 @@ class SignupActivity : AppCompatActivity() {
             val birthDay = binding.edRegisterDob.text.toString()
             val genderId = binding.genderRadioGroup.checkedRadioButtonId
             val genderString = when (genderId) {
-                R.id.rb_male -> getString(R.string.male)
-                R.id.rb_female -> getString(R.string.female)
+                R.id.rb_male -> "male"
+                R.id.rb_female -> "female"
                 else -> ""
             }
 
@@ -143,7 +143,7 @@ class SignupActivity : AppCompatActivity() {
             val day = calendar.get(Calendar.DAY_OF_MONTH)
 
             DatePickerDialog(this, { _, selectedYear, selectedMonth, selectedDay ->
-                val formattedDate = "$selectedDay/${selectedMonth + 1}/$selectedYear"
+                val formattedDate = "${selectedYear}-${(selectedMonth + 1).toString().padStart(2, '0')}-${selectedDay.toString().padStart(2, '0')}"
                 binding.edRegisterDob.setText(formattedDate)
             }, year, month, day).show()
         }
