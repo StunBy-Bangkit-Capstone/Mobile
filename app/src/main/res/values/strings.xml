@@ -55,7 +55,7 @@
     <string name="label_gender">Gender</string>
     <string name="chart_title">chart_title</string>
     <string name="last_update">Last update</string>
-    <string name="date">dd month yyyy</string>
+    <string name="date">12 Desember 2024 (2 months 3 days)</string>
     <string name="kg">kg</string>
     <string name="value_weight">8,8</string>
     <string name="weight">Tinggi</string>
@@ -77,4 +77,129 @@
     <string name="recovery">Recovery</string>
     <string name="hint_age">Age</string>
     <string name="hint_date">Growth date</string>
+    <string name="berat_numur">(BB/U)</string>
+    <string name="berat_umur">Berat/Umur</string>
+    <string name="tinggi_umur">Tinggi/Umur</string>
+    <string name="berat_tinggi">Berat/Tinggi</string>
+
+
+    <string name="level_aktivitas">%1$s</string>
+    <string name="status_asi">%1$s</string>
+    <string name="berat_bayi">%1$s kg</string>
+    <string name="panjang_bayi">%1$s cm</string>
+    <string name="z_score_bbtb">Z-Score BB/TB: %1$s</string>
+    <string name="z_score_length">Z-Score Length: %1$s</string>
+    <string name="z_score_weight">Z-Score Weight: %1$s</string>
+    <string name="status_bbtb">Status BB/TB: %1$s</string>
+    <string name="nutritional_status_weight">Status Gizi Berat: %1$s</string>
+    <string name="nutritional_status_length">Status Gizi Panjang: %1$s</string>
+    <string name="status_imt">Status IMT: %1$s</string>
+
+
+    <string-array name="chart_types">
+        <item>Berat Badan menurut Umur (BB/U)</item>
+        <item>Tinggi Badan menurut Umur (TB/U)</item>
+        <item>Berat Badan menurut Tinggi Badan (BB/TB)</item>
+    </string-array>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="nama_bayi">: %String</string>
+    <string name="v_gender">: %String</string>
+    <string name="v_age">: %String</string>
+    <string name="hint_activity">Aktifitas Level</string>
+    <string name="hint_asi">Status ASI</string>
+    <string name="hint_level">Aktifitas Level</string>
+
+    <string-array name="aktivitas_level_options">
+        <item>Rendah</item>
+        <item>Sedang</item>
+        <item>Aktif</item>
+        <item>Sangat Aktif</item>
+    </string-array>
+
+    <string-array name="status_asi_options">
+        <item>ASI Eksklusif</item>
+        <item>ASI+MPASI</item>
+        <item>MPASI</item>
+    </string-array>
+
+    <string-array name="food_options">
+        <item>ASI (Air Susu Ibu)</item>
+        <item>Susu Formula Bayi 0-6 bulan</item>
+        <item>Susu Formula Lanjutan 6-12 bulan</item>
+        <item>Bubur Susu Beras Merah</item>
+        <item>Bubur Susu Beras Putih</item>
+        <item>Pisang Lumat</item>
+        <item>Pure Alpukat</item>
+        <item>Pure Apel</item>
+        <item>Pure Wortel</item>
+        <item>SUN Nasi Tim Saring</item>
+        <item>Bubur Ayam Saring</item>
+        <item>Pure Kentang</item>
+        <item>Pure Ubi Jalar Kuning</item>
+        <item>Sup Bayam Saring</item>
+        <item>Pure Labu Kuning</item>
+        <item>Tim Ikan Giling</item>
+        <item>Tim Hati Ayam</item>
+        <item>Tim Daging Sapi Giling</item>
+        <item>Bubur Kacang Hijau</item>
+        <item>Pure Tofu</item>
+        <item>Oatmeal Bayi (Oatmeal Hepi)</item>
+        <item>Biskuit Bayi (promina)</item>
+        <item>Pure Brokoli</item>
+        <item>Sup Tahu Wortel</item>
+        <item>Pure Edamame</item>
+        <item>Bubur Sumsum</item>
+        <item>Tim Telur</item>
+        <item>Pure Jagung Manis</item>
+        <item>Sup Makaroni Sayur</item>
+        <item>Pure Kembang Kol</item>
+        <item>Tim Udang</item>
+        <item>Bubur Havermut Susu</item>
+        <item>Pure Bit</item>
+        <item>Sup Oyong</item>
+        <item>Pure Pepaya</item>
+        <item>Tim Tahu</item>
+        <item>Pure Tempe</item>
+        <item>Bubur Beras Merah Sayur</item>
+        <item>Pure Labu Siam</item>
+        <item>Tim Ikan Salmon</item>
+        <item>Sup Cream Jagung</item>
+        <item>Pure Kacang Polong</item>
+        <item>Tim Ayam Cincang</item>
+        <item>Pure Pare</item>
+        <item>Bubur Beras Hitam</item>
+        <item>Pure Terong</item>
+        <item>Tim Ikan Dori</item>
+        <item>Pure Bayam Merah</item>
+        <item>Sup Tahu Telur</item>
+        <item>Pure Kacang Merah</item>
+        <item>Bubur Sagu</item>
+        <item>Tim Ikan Gabus</item>
+        <item>Bubur Singkong</item>
+        <item>Pure Daun Katuk</item>
+        <item>Bubur Jagung Manis</item>
+        <item>Pure Labu Parang</item>
+        <item>Tim Belut</item>
+        <item>Bubur Ikan Salmon</item>
+        <item>Pure Daun Mengkudu</item>
+        <item>Tim Telur Puyuh</item>
+        <item>Bubur Ubi Ungu</item>
+        <item>Pure Daun Kelor</item>
+        <item>Tim Kerang</item>
+        <item>Pure Buah Naga Merah</item>
+        <item>Bubur Gandum</item>
+        <item>Pure Daun Singkong</item>
+        <item>Tim Cumi-cumi</item>
+        <item>Pure Daun Papaya</item>
+        <item>Bubur Beras Merah Kacang Hijau</item>
+        <item>Pure Mangga</item>
+        <item>Bubur Pisang Keju</item>
+        <item>Tumis Bayam dan Tahu</item>
+        <item>Bubur Kacang Merah</item>
+        <item>Tim Tempe Kedelai</item>
+        <item>Pure Buah Bit dan Apel</item>
+        <item>Bubur Jagung Manis dan Ayam</item>
+    </string-array>
+
 </resources>

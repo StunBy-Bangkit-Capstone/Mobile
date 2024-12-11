@@ -40,6 +40,8 @@ class ProfileFragment : Fragment() {
 
         setupUser()
 
+
+
         // Inflate layout untuk fragment
         return binding.root
     }
@@ -64,6 +66,10 @@ class ProfileFragment : Fragment() {
         // Tambahkan logika untuk toggle submenu Settings
         tvSettings.setOnClickListener {
             toggleSubMenu()
+        }
+
+        binding.logout.setOnClickListener {
+            viewModel.logout()
         }
     }
 

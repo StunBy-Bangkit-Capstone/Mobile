@@ -1,10 +1,21 @@
 package com.example.stunby.data
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import com.example.stunby.data.pref.UserModel
 import com.example.stunby.data.pref.UserPreference
+import com.example.stunby.data.remote.response.AddMeasureResponse
+import com.example.stunby.data.remote.response.ArticleResponse
+import com.example.stunby.data.remote.response.ArticlesResponse
 import com.example.stunby.data.remote.response.Data
+import com.example.stunby.data.remote.response.DataNutritions
+import com.example.stunby.data.remote.response.DataUser
+import com.example.stunby.data.remote.response.DetailResponse
 import com.example.stunby.data.remote.response.LoginResponse
+import com.example.stunby.data.remote.response.MeasureResponse
+import com.example.stunby.data.remote.response.MeasuresResponse
+import com.example.stunby.data.remote.response.NutritionResponse
+import com.example.stunby.data.remote.response.NutritionsResponse
 import com.example.stunby.data.remote.response.RegisterResponse
 import com.example.stunby.data.remote.response.UserResponse
 import com.example.stunby.data.remote.retrofit.ApiService
@@ -43,10 +54,64 @@ class UserRepository private constructor(
         return runBlocking { userPreference.getSession().first().token }
     }
 
-    suspend fun getUser(): Data {
+    suspend fun getUser(): DataUser {
         return apiService.getUser("Bearer ${getToken()}").dataUsers
     }
 
+
+    suspend fun addMeasure(baby_photo_url: MultipartBody.Part, levelActivity: RequestBody, statusAsi: RequestBody?, age: RequestBody?, weight: RequestBody?, date: RequestBody?): AddMeasureResponse {
+        val token = getToken()
+
+        return apiService.addMeasure("Bearer $token", baby_photo_url, levelActivity, statusAsi, age, weight, date)
+    }
+
+
+
+    suspend fun getMeasures(): MeasuresResponse {
+        val token = getToken()
+        try {
+            return apiService.getMeasures("Bearer $token")
+        } catch (e: HttpException) {
+            if (e.code() == 401) {
+                logout()
+                throw e
+            } else {
+                throw e
+            }
+        }
+    }
+
+    suspend fun getMeasure(id: String): MeasureResponse {
+        val token = getToken()
+        return apiService.getMeasure("Bearer $token", id)
+    }
+
+    suspend fun getArticles(): ArticlesResponse {
+        val token = getToken()
+        return apiService.getArticles("Bearer $token")
+    }
+
+    suspend fun getArticle(id: String): ArticleResponse {
+        val token = getToken()
+        return apiService.getArticle("Bearer $token", id)
+    }
+
+    suspend fun addNutrition(food_name: String, portion: Int, date: String): NutritionResponse {
+        val token = getToken()
+        return apiService.addNutrition("Bearer $token", food_name,  date, portion,)
+    }
+
+    suspend fun getNutrition(id: String): NutritionResponse {
+        val token = getToken()
+        return apiService.getNutrition("Bearer $token", id)
+    }
+
+    suspend fun getNutritions(): NutritionsResponse {
+        val token = getToken()
+        val response = apiService.getNutritions("Bearer $token")
+        Log.d("NutritionRepository", "API response: $response")
+        return response
+    }
 
 
     companion object {

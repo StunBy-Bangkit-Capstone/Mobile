@@ -41,5 +41,10 @@ class MainActivity : AppCompatActivity() {
         val navController = navHostFragment.navController
         navView.setupWithNavController(navController)
 
+        val navigateTo = intent.getStringExtra("navigate_to")
+        if (navigateTo == "history") {
+            navView.selectedItemId = R.id.navigation_history
+        }
+
     }
 }

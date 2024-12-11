@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.nutrition.detail.DetailNutritionActivity">
+
+    <!-- Top App Bar -->
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/top_app_bar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        app:contentInsetStart="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:navigationIcon="@drawable/ic_arrow_back"
+        app:title="Nutrition"
+        app:titleTextColor="?attr/colorOnPrimary" />
+
+    <!-- Food Name -->
+    <TextView
+        android:id="@+id/tvFoodName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:padding="16dp"
+        android:text="Food Name"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/top_app_bar" />
+
+    <!-- Date -->
+    <TextView
+        android:id="@+id/tvDate"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Date"
+        android:textSize="14sp"
+        app:layout_constraintTop_toBottomOf="@id/tvFoodName"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:padding="16dp" />
+
+    <!-- Portion -->
+    <TextView
+        android:id="@+id/tvPortion"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Portion"
+        android:textSize="14sp"
+        app:layout_constraintTop_toBottomOf="@id/tvDate"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:padding="16dp" />
+
+    <!-- Created At -->
+    <TextView
+        android:id="@+id/tvCreatedAt"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Created At"
+        android:textSize="14sp"
+        app:layout_constraintTop_toBottomOf="@id/tvPortion"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:padding="16dp" />
+
+    <!-- Updated At -->
+    <TextView
+        android:id="@+id/tvUpdatedAt"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Updated At"
+        android:textSize="14sp"
+        app:layout_constraintTop_toBottomOf="@id/tvCreatedAt"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:padding="16dp" />
+
+    <!-- Nutrition Information -->
+    <TextView
+        android:id="@+id/tvNutritionInfo"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Nutrition Information"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf="@id/tvUpdatedAt"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:padding="16dp" />
+
+    <!-- Carbohydrates -->
+    <TextView
+        android:id="@+id/tvCarbohydrates"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Carbohydrates: 0g"
+        android:textSize="14sp"
+        app:layout_constraintTop_toBottomOf="@id/tvNutritionInfo"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:padding="16dp" />
+
+    <!-- Fats -->
+    <TextView
+        android:id="@+id/tvFats"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Fats: 0g"
+        android:textSize="14sp"
+        app:layout_constraintTop_toBottomOf="@id/tvCarbohydrates"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:padding="16dp" />
+
+    <!-- Proteins -->
+    <TextView
+        android:id="@+id/tvProteins"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Proteins: 0g"
+        android:textSize="14sp"
+        app:layout_constraintTop_toBottomOf="@id/tvFats"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:padding="16dp" />
+
+    <!-- Calories -->
+    <TextView
+        android:id="@+id/tvCalories"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Calories: 0 kcal"
+        android:textSize="14sp"
+        app:layout_constraintTop_toBottomOf="@id/tvProteins"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:padding="16dp" />
+
+    <!-- Calcium -->
+    <TextView
+        android:id="@+id/tvCalcium"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Calcium: 0mg"
+        android:textSize="14sp"
+        app:layout_constraintTop_toBottomOf="@id/tvCalories"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:padding="16dp" />
+
+    <!-- Notes -->
+    <TextView
+        android:id="@+id/tvNotes"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Notes"
+        android:textSize="14sp"
+        app:layout_constraintTop_toBottomOf="@id/tvCalcium"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:padding="16dp" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

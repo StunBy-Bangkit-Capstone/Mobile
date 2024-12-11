@@ -8,4 +8,23 @@
         <item name="android:layout_gravity">start</item> <!-- Posisi indikator (kiri) -->
         <item name="itemIconTint">@color/colorOnSecondary</item>
     </style>
+
+    <style name="SegmentedButtonStyle" parent="Widget.MaterialComponents.Button.OutlinedButton">
+        <item name="strokeWidth">1dp</item>
+        <item name="cornerRadius">8dp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:minWidth">48dp</item>
+    </style>
+
+    <style name="TextBody1" >
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">@color/colorOnPrimary</item>
+    </style>
+
+    <style name="SpinnerTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="android:popupBackground">@drawable/spinner_background</item>
+        <item name="android:dropDownVerticalOffset">8dp</item>
+        <item name="android:dropDownHorizontalOffset">8dp</item>
+    </style>
+
 </resources>
