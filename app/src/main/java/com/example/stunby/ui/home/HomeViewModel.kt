@@ -45,7 +45,6 @@ class HomeViewModel(private val repository: UserRepository) : ViewModel() {
                 _measure.value = response.data
 
                 }catch (e: Exception) {
-                // Menangani exception lain dan memberikan feedback ke pengguna
                 _measure.value = emptyList()
                 Log.e("HomeViewModel", "Error fetching stories: ${e.message}", e)
             } finally {

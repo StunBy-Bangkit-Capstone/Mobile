@@ -48,6 +48,9 @@ class NutritionActivity : AppCompatActivity() {
         binding.btnCalculate.setOnClickListener {
             addNutrition()
         }
+        binding.topAppBar.setNavigationOnClickListener {
+            onBackPressed()
+        }
 
         observeNutrition()
     }
@@ -77,7 +80,7 @@ class NutritionActivity : AppCompatActivity() {
 
     private fun addNutrition() {
         val food = binding.dropdownSearchLayout.editText?.text.toString()
-        val portion = binding.edPortion.text.toString().toInt()
+        val portion = binding.edPortion.text.toString().toDouble()
         val date = binding.edDate.text.toString()
 
 

@@ -1,9 +1,11 @@
 package com.example.stunby.ui.login
 
+import android.animation.ObjectAnimator
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.view.WindowInsets
 import android.view.WindowManager
 import android.widget.Toast
@@ -16,6 +18,7 @@ import com.example.stunby.R
 import com.example.stunby.data.pref.UserModel
 import com.example.stunby.databinding.ActivityLoginBinding
 import com.example.stunby.ui.ViewModelFactory
+import com.example.stunby.ui.signup.SignupActivity
 
 class LoginActivity : AppCompatActivity() {
     private val viewModel by viewModels<LoginViewModel> {
@@ -27,10 +30,19 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        playAnimation()
 
         setupView()
         setupAction()
         observeLogin()
+    }
+
+    private fun playAnimation() {
+        ObjectAnimator.ofFloat(binding.imageView6, View.TRANSLATION_Y, -30f, 30f).apply {
+            duration = 4000
+            repeatCount = ObjectAnimator.INFINITE
+            repeatMode = ObjectAnimator.REVERSE
+        }.start()
     }
 
     private fun observeLogin() {
@@ -82,9 +94,9 @@ class LoginActivity : AppCompatActivity() {
         binding.edLoginEmail.isEnabled = !loading
         binding.edLoginPassword.isEnabled = !loading
         binding.progressBar.visibility = if (loading) {
-            android.view.View.VISIBLE
+            View.VISIBLE
         } else {
-            android.view.View.GONE
+            View.GONE
         }
         return loading
     }
@@ -123,6 +135,10 @@ class LoginActivity : AppCompatActivity() {
             }
 
 
+        }
+
+        binding.signupText.setOnClickListener {
+            startActivity(Intent(this, SignupActivity::class.java))
         }
     }
 

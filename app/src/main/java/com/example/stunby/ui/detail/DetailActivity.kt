@@ -50,6 +50,10 @@ class DetailActivity : AppCompatActivity() {
         } else {
             finish()
         }
+        binding.topAppBar.setNavigationOnClickListener {
+            onBackPressed()
+        }
+
 
         setupObservers()
 
@@ -114,22 +118,25 @@ class DetailActivity : AppCompatActivity() {
             edWeight.text = Editable.Factory.getInstance().newEditable(getString(R.string.berat_bayi, "${measure.weight}"))
             edHeight.text = Editable.Factory.getInstance().newEditable(getString(R.string.panjang_bayi, "${measure.iMTResult?.babyLength}"))
 
+
             edLevel.text = Editable.Factory.getInstance().newEditable(getString(R.string.level_aktivitas, measure.levelActivity))
             edAsi.text = Editable.Factory.getInstance().newEditable(getString(R.string.status_asi, measure.statusAsi))
+
 
             tvKarbo.text = measure.measuremenetResult!!.carbohydrateNeeded.toString()
             tvProtein.text = measure.measuremenetResult.proteinNeeded.toString()
             tvLemak.text = measure.measuremenetResult.fatNeeded.toString()
             tvKalori.text = measure.measuremenetResult.caloriesNeeded.toString()
 
-            tvZScoreBBTB.text = getString(R.string.z_score_bbtb, measure.iMTResult?.zScoreBbTb.toString())
-            tvZScoreLength.text = getString(R.string.z_score_length, measure.iMTResult?.zScoreLength.toString())
-            tvZScoreWeight.text = getString(R.string.z_score_weight, measure.iMTResult?.zScoreWeight.toString())
+            tvZScoreBBTB.text = getString(R.string.z_score_bbtb, String.format(Locale.getDefault(), "%.2f", measure.iMTResult?.zScoreBbTb ?: 0.0))
+            tvZScoreLength.text = getString(R.string.z_score_length, String.format(Locale.getDefault(), "%.2f", measure.iMTResult?.zScoreLength ?: 0.0))
+            tvZScoreWeight.text = getString(R.string.z_score_weight, String.format(Locale.getDefault(), "%.2f", measure.iMTResult?.zScoreWeight ?: 0.0))
 
-            tvStatusBBTB.text = getString(R.string.status_bbtb, measure.iMTResult?.statusBbTb)
-            tvNutritionalStatusWeight.text = getString(R.string.nutritional_status_weight, measure.iMTResult?.nitritionalStatusWeight)
-            tvNutritionalStatusLength.text = getString(R.string.nutritional_status_length, measure.iMTResult?.nitritionalStatusLength)
-            tvStatusIMT.text = getString(R.string.status_imt, measure.iMTResult?.statusImt)
+
+            tvStatusBBTB.text = measure.iMTResult?.statusBbTb
+            tvNutritionalStatusWeight.text = measure.iMTResult?.nitritionalStatusWeight
+            tvNutritionalStatusLength.text = measure.iMTResult?.nitritionalStatusLength
+            tvStatusIMT.text = measure.iMTResult?.statusImt
 
 
         }

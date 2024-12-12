@@ -21,6 +21,9 @@ class ScanViewModel(private val repository: UserRepository) : ViewModel() {
     private val _user = MutableLiveData<DataUser>()
     val user: LiveData<DataUser> get() = _user
 
+    private val _isLoading = MutableLiveData<Boolean>()
+    val isLoading: LiveData<Boolean> get() = _isLoading
+
 
 
     suspend fun addMeasure(
@@ -31,11 +34,14 @@ class ScanViewModel(private val repository: UserRepository) : ViewModel() {
         weight: RequestBody?,
         date: RequestBody?,
     ): AddMeasureResponse {
+        _isLoading.value = true
         return try {
             repository.addMeasure(baby_photo_url, levelActivity, statusAsi, age, weight, date ).also {
             }
         } catch (e: Exception) {
             throw e
+        } finally {
+            _isLoading.value = false
         }
     }
 
@@ -56,17 +62,17 @@ class ScanViewModel(private val repository: UserRepository) : ViewModel() {
         }
     }
 
-    suspend fun calculateAge(currentDate: String): Int {
+    suspend fun calculateAge(currentDate: String): String {
         val birthDate = getUserSync().birthDay
-        // Ubah split ke "-" karena formatnya sekarang yyyy-MM-dd
         val (birthYear, birthMonth, birthDay) = birthDate.split("-").map { it.toInt() }
         val (currentYear, currentMonth, currentDay) = currentDate.split("-").map { it.toInt() }
 
-        var age = currentYear - birthYear
-        if (currentMonth < birthMonth || (currentMonth == birthMonth && currentDay < birthDay)) {
-            age--
+        var ageInMonths = (currentYear - birthYear) * 12 + (currentMonth - birthMonth)
+        if (currentDay < birthDay) {
+            ageInMonths--
         }
-        return age
+        val ageFormated = "$ageInMonths bulan"
+        return ageFormated
     }
 
 }

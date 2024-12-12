@@ -145,7 +145,7 @@ data class Data(
 	val babyPhotoUrl: String? = null,
 
 	@field:SerializedName("weight")
-	val weight: Int? = null,
+	val weight: Double? = null,
 
 	@field:SerializedName("created_at")
 	val createdAt: String? = null,
@@ -348,7 +348,7 @@ data class DataDetail(
 	val level_activity: String? = null,
 	val status_asi: String? = null,
 	val baby_photo_url: String? = null,
-	val weight: Int? = null,
+	val weight: Double? = null,
 	val created_at: String? = null,
 	val measuremenet_result: MeasuremenetResult? = null,
 	val id: String? = null,
@@ -418,7 +418,7 @@ data class DataNutrition(
 	val food_name: String? = null,
 	val updated_at: String? = null,
 	val user_id: String? = null,
-	val portion: Int? = null,
+	val portion: Double? = null,
 	val created_at: String? = null,
 	val nutrition_result: NutritionResult? = null,
 	val id: String? = null
@@ -446,27 +446,27 @@ data class NutritionsResponse(
 )
 
 data class TotalNutrition(
-	val total_calories: Int? = null,
-	val total_carbohydrates: Int? = null,
-	val total_calciums: Int? = null,
+	val total_calories: Double? = null,
+	val total_carbohydrates: Double? = null,
+	val total_calciums: Double? = null,
 	val total_proteins: Any? = null,
 	val total_fats: Any? = null
 )
 
 data class NutritionDetails(
-	val carbohydrates: Int? = null,
+	val carbohydrates: Double? = null,
 	val notes: String? = null,
 	val fats: Any? = null,
 	val proteins: Any? = null,
-	val calciums: Int? = null,
-	val calories: Int? = null
+	val calciums: Double? = null,
+	val calories: Double? = null
 )
 
 data class HistoriesItem(
 	val date: String? = null,
 	val food_name: String? = null,
 	val nutrition_details: NutritionDetails? = null,
-	val portion: Int? = null,
+	val portion: Double? = null,
 	val created_at: String? = null,
 	val id: String? = null
 )

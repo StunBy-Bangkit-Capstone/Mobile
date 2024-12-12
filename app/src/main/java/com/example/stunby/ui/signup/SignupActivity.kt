@@ -1,6 +1,7 @@
 package com.example.stunby.ui.signup
 
 import android.app.DatePickerDialog
+import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
@@ -18,6 +19,7 @@ import com.example.storyapp.view.signup.SignupViewModel
 import com.example.stunby.R
 import com.example.stunby.databinding.ActivitySignupBinding
 import com.example.stunby.ui.ViewModelFactory
+import com.example.stunby.ui.login.LoginActivity
 import java.util.Calendar
 
 class SignupActivity : AppCompatActivity() {
@@ -132,6 +134,10 @@ class SignupActivity : AppCompatActivity() {
                 else -> {
                     viewModel.register(email, name, birthDay, genderString, password)
                 }
+            }
+            binding.loginText.setOnClickListener {
+                startActivity(Intent(this, LoginActivity::class.java))
+
             }
         }
 

@@ -55,7 +55,17 @@ class UserRepository private constructor(
     }
 
     suspend fun getUser(): DataUser {
-        return apiService.getUser("Bearer ${getToken()}").dataUsers
+        val token = getToken()
+        try {
+            return apiService.getUser("Bearer $token").dataUsers
+        } catch (e: HttpException) {
+            if (e.code() == 401) {
+                logout()
+                throw e
+            } else {
+                throw e
+            }
+        }
     }
 
 
@@ -96,7 +106,7 @@ class UserRepository private constructor(
         return apiService.getArticle("Bearer $token", id)
     }
 
-    suspend fun addNutrition(food_name: String, portion: Int, date: String): NutritionResponse {
+    suspend fun addNutrition(food_name: String, portion: Double, date: String): NutritionResponse {
         val token = getToken()
         return apiService.addNutrition("Bearer $token", food_name,  date, portion,)
     }

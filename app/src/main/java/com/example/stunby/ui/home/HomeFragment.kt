@@ -28,9 +28,12 @@ import com.github.mikephil.charting.data.LineDataSet
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.text.SimpleDateFormat
 import java.time.LocalDate
 import java.time.Period
 import java.time.format.DateTimeFormatter
+import java.time.temporal.ChronoUnit
+import java.util.Locale
 
 
 class HomeFragment : Fragment() {
@@ -65,21 +68,53 @@ class HomeFragment : Fragment() {
 
 
     private fun setupUser() {
+        viewModel.user.observe(viewLifecycleOwner) { user ->
+            if (user != null) {
+                binding.tvName.text = user.fullName
+                val birthDate = user.birthDay
+                val dateNow = LocalDate.now().toString()
 
-        viewModel.user.observe(viewLifecycleOwner) {
-            binding.tvName.text = it.fullName
-            lifecycleScope.launch {
-                val fotoUrl = withContext(Dispatchers.IO) {
-                    it.fotoUrl
+                if (!birthDate.isNullOrEmpty()) {
+                    calculateAge(birthDate, dateNow)
+                } else {
+                    Log.e("setupUser", "Tanggal lahir tidak tersedia.")
                 }
-                Glide.with(this@HomeFragment)
-                    .load(fotoUrl)
-                    .circleCrop()
-                    .into(binding.ivProfile)
+
+                lifecycleScope.launch {
+                    val fotoUrl = withContext(Dispatchers.IO) {
+                        user.fotoUrl
+                    }
+                    Glide.with(this@HomeFragment)
+                        .load(fotoUrl)
+                        .circleCrop()
+                        .into(binding.ivProfile)
+                }
+            } else {
+                // Jika data user null, tampilkan data default atau sembunyikan elemen
+                binding.tvName.text = "Pengguna tidak ditemukan"
+                binding.ivProfile.setImageResource(R.drawable.ic_place_holder) // Placeholder gambar default
             }
         }
     }
 
+
+    private fun calculateAge(birthDate: String?, dateMeasure: String?) {
+        if (birthDate == null || dateMeasure == null) {
+            binding.tvAge.text = "Tanggal tidak valid"
+            return
+        }
+
+        val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
+        val birthLocalDate = LocalDate.parse(birthDate, formatter)
+        val measureLocalDate = LocalDate.parse(dateMeasure, formatter)
+
+        val years = ChronoUnit.YEARS.between(birthLocalDate, measureLocalDate).toInt()
+        val months = ChronoUnit.MONTHS.between(birthLocalDate.plusYears(years.toLong()), measureLocalDate).toInt()
+        val days = ChronoUnit.DAYS.between(birthLocalDate.plusYears(years.toLong()).plusMonths(months.toLong()), measureLocalDate).toInt()
+
+        val ageString = "$years Tahun $months Bulan $days Hari"
+        binding.tvAge.text = ageString
+    }
 //    private fun setupChartSelector() {
 //        val chartTypes = resources.getStringArray(R.array.chart_types)
 //        val adapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, chartTypes)
@@ -163,20 +198,43 @@ class HomeFragment : Fragment() {
                 }
             }
 
+            if (measures.isNotEmpty()) {
+                // Jika ada data
+                val lastUpdate = measures.first().dateMeasure
+                Log.e("lastUpdate", lastUpdate.toString())
+                binding.tvLastUpdate.text = formatDate(lastUpdate)
+                binding.tvHeight.text = "Tinggi: ${measures.first().iMTResult?.babyLength} cm"
+                binding.tvWeight.text = "Berat: ${measures.first().weight} kg"
+            } else {
+                // Jika data kosong
+                binding.tvLastUpdate.text = "Data tidak tersedia"
+                binding.tvHeight.text = "Tinggi: -"
+                binding.tvWeight.text = "Berat: -"
+            }
+
             // Mengurutkan entri berdasarkan nilai x
             entriesBBU.sortBy { it.x }
             entriesTBU.sortBy { it.x }
+            entriesTBBB.sortBy { it.x }
+
+            data class ChartData(
+                val entries: List<Entry>,
+                val minRange: Float,
+                val maxRange: Float,
+                val title: String
+            )
 
             // Menentukan data yang akan digunakan berdasarkan chartType
-            val (childEntries, maxRange, title) = when (chartType) {
-                "Berat Badan menurut Umur (BB/U)" -> Triple(entriesBBU, 24f, "Berat Badan menurut Umur (BB/U)")
-                "Tinggi Badan menurut Umur (TB/U)" -> Triple(entriesTBU, 24f, "Tinggi Badan menurut Umur (TB/U)")
-                "Berat Badan menurut Tinggi Badan (BB/TB)" -> Triple(entriesTBBB, 60f, "Berat Badan menurut Tinggi Badan (BB/TB)")
-                else -> Triple(emptyList<Entry>(), 0f, "Unknown Chart")
+            val (childEntries, minRange, maxRange, title) = when (chartType) {
+                "Berat Badan menurut Umur (BB/U)" -> ChartData(entriesBBU, 0f, 24f, "Berat Badan menurut Umur (BB/U)")
+                "Tinggi Badan menurut Umur (TB/U)" -> ChartData(entriesTBU, 0f, 24f, "Tinggi Badan menurut Umur (TB/U)")
+                "Berat Badan menurut Tinggi Badan (BB/TB)" -> ChartData(entriesTBBB, 45f, 110f, "Berat Badan menurut Tinggi Badan (BB/TB)")
+                else -> ChartData(emptyList(), 0f, 0f, "Unknown Chart")
             }
 
+
             // Konfigurasi dan refresh chart
-            WHOChartUtils.setupWHOChart(chart, chartType, sdData, childEntries, maxRange)
+            WHOChartUtils.setupWHOChart(chart, chartType, sdData, childEntries,minRange, maxRange)
             binding.tvTitle.text = title
             chart.invalidate()
         }
@@ -185,6 +243,19 @@ class HomeFragment : Fragment() {
 
 
 
+    private fun formatDate(inputDate: String?): String {
+        if (inputDate == null) return "Tanggal tidak valid"
+
+        val inputFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+        val outputFormat = SimpleDateFormat("dd MMM yyyy", Locale.getDefault())
+
+        return try {
+            val date = inputFormat.parse(inputDate)
+            date?.let { outputFormat.format(it) } ?: "Tanggal tidak valid"
+        } catch (e: Exception) {
+            "Tanggal tidak valid"
+        }
+    }
 
     private fun getStandardDeviationData(chartType: String): Map<Int, List<Float>> {
         Log.d("HomeFragment", "getStandardDeviationData called with chartType: $chartType")
@@ -209,6 +280,10 @@ class HomeFragment : Fragment() {
             )
             "Berat Badan menurut Tinggi Badan (BB/TB)" -> mapOf(
                 -3 to listOf(
+                    2.6f, 2.7f, 2.7f, 2.8f, 2.9f, 3.0f, 3.1f, 3.2f, 3.3f, 3.4f,
+                    3.6f, 3.7f, 3.8f, 3.9f, 4.0f, 4.1f, 4.3f, 4.4f, 4.5f, 4.6f,
+                    4.7f, 4.8f, 4.9f, 5.0f, 5.1f, 5.2f, 5.3f, 5.4f, 5.5f, 5.6f,
+                    5.7f, 5.8f, 5.9f, 6.0f, 6.1f,
                     1.9f, 1.9f, 2.0f, 2.1f, 2.1f, 2.2f, 2.3f, 2.3f, 2.4f, 2.5f,
                     2.6f, 2.7f, 2.7f, 2.8f, 2.9f, 3.0f, 3.1f, 3.2f, 3.3f, 3.4f,
                     3.6f, 3.7f, 3.8f, 3.9f, 4.0f, 4.1f, 4.3f, 4.4f, 4.5f, 4.6f,
@@ -226,6 +301,10 @@ class HomeFragment : Fragment() {
                 ),
 
                 -2 to listOf(
+                    2.6f, 2.7f, 2.7f, 2.8f, 2.9f, 3.0f, 3.1f, 3.2f, 3.3f, 3.4f,
+                    3.6f, 3.7f, 3.8f, 3.9f, 4.0f, 4.1f, 4.3f, 4.4f, 4.5f, 4.6f,
+                    4.7f, 4.8f, 4.9f, 5.0f, 5.1f, 5.2f, 5.3f, 5.4f, 5.5f, 5.6f,
+                    5.7f, 5.8f, 5.9f, 6.0f, 6.1f,
                     2.0f, 2.1f, 2.2f, 2.3f, 2.3f, 2.4f, 2.5f, 2.6f, 2.6f, 2.7f,
                     2.8f, 2.9f, 3.0f, 3.1f, 3.2f, 3.3f, 3.4f, 3.5f, 3.6f, 3.7f,
                     3.8f, 4.0f, 4.1f, 4.2f, 4.3f, 4.5f, 4.6f, 4.7f, 4.8f, 5.0f,
@@ -243,6 +322,10 @@ class HomeFragment : Fragment() {
                 ),
 
                 -1 to listOf(
+                    2.6f, 2.7f, 2.7f, 2.8f, 2.9f, 3.0f, 3.1f, 3.2f, 3.3f, 3.4f,
+                    3.6f, 3.7f, 3.8f, 3.9f, 4.0f, 4.1f, 4.3f, 4.4f, 4.5f, 4.6f,
+                    4.7f, 4.8f, 4.9f, 5.0f, 5.1f, 5.2f, 5.3f, 5.4f, 5.5f, 5.6f,
+                    5.7f, 5.8f, 5.9f, 6.0f, 6.1f,
                     2.2f, 2.3f, 2.4f, 2.5f, 2.5f, 2.6f, 2.7f, 2.8f, 2.9f, 3.0f,
                     3.0f, 3.1f, 3.2f, 3.3f, 3.5f, 3.6f, 3.7f, 3.8f, 3.9f, 4.0f,
                     4.2f, 4.3f, 4.4f, 4.6f, 4.7f, 4.9f, 5.0f, 5.1f, 5.3f, 5.4f,
@@ -259,6 +342,10 @@ class HomeFragment : Fragment() {
                     15.9f, 16.0f, 16.2f, 16.3f, 16.5f, 16.6f, 16.8f
                 ),
                 0 to listOf(
+                    2.6f, 2.7f, 2.7f, 2.8f, 2.9f, 3.0f, 3.1f, 3.2f, 3.3f, 3.4f,
+                    3.6f, 3.7f, 3.8f, 3.9f, 4.0f, 4.1f, 4.3f, 4.4f, 4.5f, 4.6f,
+                    4.7f, 4.8f, 4.9f, 5.0f, 5.1f, 5.2f, 5.3f, 5.4f, 5.5f, 5.6f,
+                    5.7f, 5.8f, 5.9f, 6.0f, 6.1f,
                     2.4f, 2.5f, 2.6f, 2.7f, 2.8f, 2.9f, 2.9f, 3.0f, 3.1f, 3.2f,
                     3.3f, 3.4f, 3.5f, 3.6f, 3.8f, 3.9f, 4.0f, 4.1f, 4.3f, 4.4f,
                     4.5f, 4.7f, 4.8f, 5.0f, 5.1f, 5.3f, 5.4f, 5.6f, 5.7f, 5.9f,
@@ -275,6 +362,10 @@ class HomeFragment : Fragment() {
                     17.3f, 17.4f, 17.6f, 17.8f, 17.9f, 18.1f, 18.3f
                 ),
                 1 to listOf(
+                    2.6f, 2.7f, 2.7f, 2.8f, 2.9f, 3.0f, 3.1f, 3.2f, 3.3f, 3.4f,
+                    3.6f, 3.7f, 3.8f, 3.9f, 4.0f, 4.1f, 4.3f, 4.4f, 4.5f, 4.6f,
+                    4.7f, 4.8f, 4.9f, 5.0f, 5.1f, 5.2f, 5.3f, 5.4f, 5.5f, 5.6f,
+                    5.7f, 5.8f, 5.9f, 6.0f, 6.1f,
                     2.7f, 2.8f, 2.9f, 3.0f, 3.0f, 3.1f, 3.2f, 3.3f, 3.4f, 3.5f,
                     3.6f, 3.8f, 3.9f, 4.0f, 4.1f, 4.2f, 4.4f, 4.5f, 4.7f, 4.8f,
                     5.0f, 5.1f, 5.3f, 5.4f, 5.6f, 5.7f, 5.9f, 6.1f, 6.2f, 6.4f,
@@ -291,6 +382,10 @@ class HomeFragment : Fragment() {
                     18.6f, 18.8f, 19.0f, 19.2f, 19.4f, 19.6f, 19.8f, 20.0f
                 ),
                 2 to listOf(
+                    2.6f, 2.7f, 2.7f, 2.8f, 2.9f, 3.0f, 3.1f, 3.2f, 3.3f, 3.4f,
+                    3.6f, 3.7f, 3.8f, 3.9f, 4.0f, 4.1f, 4.3f, 4.4f, 4.5f, 4.6f,
+                    4.7f, 4.8f, 4.9f, 5.0f, 5.1f, 5.2f, 5.3f, 5.4f, 5.5f, 5.6f,
+                    5.7f, 5.8f, 5.9f, 6.0f, 6.1f,
                     3.0f, 3.1f, 3.1f, 3.2f, 3.3f, 3.4f, 3.6f, 3.7f, 3.8f, 3.9f,
                     4.0f, 4.1f, 4.2f, 4.4f, 4.5f, 4.6f, 4.8f, 4.9f, 5.1f, 5.3f,
                     5.4f, 5.6f, 5.8f, 5.9f, 6.1f, 6.3f, 6.4f, 6.6f, 6.8f, 7.0f,
@@ -307,6 +402,10 @@ class HomeFragment : Fragment() {
                     20.2f, 20.4f, 20.6f, 20.8f, 21.0f, 21.2f, 21.4f, 21.7f, 21.9f
                 ),
                 3 to listOf(
+                    2.6f, 2.7f, 2.7f, 2.8f, 2.9f, 3.0f, 3.1f, 3.2f, 3.3f, 3.4f,
+                    3.6f, 3.7f, 3.8f, 3.9f, 4.0f, 4.1f, 4.3f, 4.4f, 4.5f, 4.6f,
+                    4.7f, 4.8f, 4.9f, 5.0f, 5.1f, 5.2f, 5.3f, 5.4f, 5.5f, 5.6f,
+                    5.7f, 5.8f, 5.9f, 6.0f, 6.1f,
                     3.3f, 3.4f, 3.5f, 3.6f, 3.7f, 3.8f, 3.9f, 4.0f, 4.2f, 4.3f,
                     4.4f, 4.5f, 4.7f, 4.8f, 5.0f, 5.1f, 5.3f, 5.4f, 5.6f, 5.8f,
                     6.0f, 6.1f, 6.3f, 6.5f, 6.7f, 6.9f, 7.1f, 7.2f, 7.4f, 7.6f,

@@ -1,170 +1,285 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.nutrition.detail.DetailNutritionActivity">
+    android:background="@color/colorOnSecondary">
 
-    <!-- Top App Bar -->
-    <com.google.android.material.appbar.MaterialToolbar
-        android:id="@+id/top_app_bar"
+    <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="?attr/colorPrimary"
-        app:contentInsetStart="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:navigationIcon="@drawable/ic_arrow_back"
-        app:title="Nutrition"
-        app:titleTextColor="?attr/colorOnPrimary" />
-
-    <!-- Food Name -->
-    <TextView
-        android:id="@+id/tvFoodName"
-        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:padding="16dp"
-        android:text="Food Name"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/top_app_bar" />
+        android:background="@color/colorPrimary"
+        app:elevation="0dp">
 
-    <!-- Date -->
-    <TextView
-        android:id="@+id/tvDate"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="Date"
-        android:textSize="14sp"
-        app:layout_constraintTop_toBottomOf="@id/tvFoodName"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:padding="16dp" />
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/top_app_bar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:navigationIcon="@drawable/ic_arrow_back"
+            app:title="Nutrition Details"
+            app:titleTextColor="@color/colorOnPrimary"
+            app:navigationIconTint="@color/colorOnPrimary"
+            android:background="@color/colorPrimary"/>
+    </com.google.android.material.appbar.AppBarLayout>
 
-    <!-- Portion -->
-    <TextView
-        android:id="@+id/tvPortion"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="Portion"
-        android:textSize="14sp"
-        app:layout_constraintTop_toBottomOf="@id/tvDate"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:padding="16dp" />
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-    <!-- Created At -->
-    <TextView
-        android:id="@+id/tvCreatedAt"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="Created At"
-        android:textSize="14sp"
-        app:layout_constraintTop_toBottomOf="@id/tvPortion"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:padding="16dp" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingBottom="16dp">
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="-10dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/baby_food" />
 
-    <!-- Updated At -->
-    <TextView
-        android:id="@+id/tvUpdatedAt"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="Updated At"
-        android:textSize="14sp"
-        app:layout_constraintTop_toBottomOf="@id/tvCreatedAt"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:padding="16dp" />
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardBackgroundColor="@color/colorOnPrimary"
+               android:layout_marginStart="24dp"
+                android:layout_marginEnd="24dp"
+                app:cardElevation="4dp"
+                app:cardCornerRadius="25dp">
 
-    <!-- Nutrition Information -->
-    <TextView
-        android:id="@+id/tvNutritionInfo"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="Nutrition Information"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        app:layout_constraintTop_toBottomOf="@id/tvUpdatedAt"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:padding="16dp" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_margin="16dp"
+                    android:padding="12dp">
 
-    <!-- Carbohydrates -->
-    <TextView
-        android:id="@+id/tvCarbohydrates"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="Carbohydrates: 0g"
-        android:textSize="14sp"
-        app:layout_constraintTop_toBottomOf="@id/tvNutritionInfo"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:padding="16dp" />
+                    <!-- Food Name -->
+                    <TextView
+                        android:id="@+id/tvFoodName"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Food Name"
+                        android:textColor="@color/colorPrimary"
 
-    <!-- Fats -->
-    <TextView
-        android:id="@+id/tvFats"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="Fats: 0g"
-        android:textSize="14sp"
-        app:layout_constraintTop_toBottomOf="@id/tvCarbohydrates"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:padding="16dp" />
+                        android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+                        android:textStyle="bold"
+                        android:layout_marginBottom="8dp"/>
 
-    <!-- Proteins -->
-    <TextView
-        android:id="@+id/tvProteins"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="Proteins: 0g"
-        android:textSize="14sp"
-        app:layout_constraintTop_toBottomOf="@id/tvFats"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:padding="16dp" />
+                    <!-- Date and Portion -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginBottom="8dp">
 
-    <!-- Calories -->
-    <TextView
-        android:id="@+id/tvCalories"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="Calories: 0 kcal"
-        android:textSize="14sp"
-        app:layout_constraintTop_toBottomOf="@id/tvProteins"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:padding="16dp" />
+                        <TextView
+                            android:id="@+id/tvDate"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Date"
+                            android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"/>
 
-    <!-- Calcium -->
-    <TextView
-        android:id="@+id/tvCalcium"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="Calcium: 0mg"
-        android:textSize="14sp"
-        app:layout_constraintTop_toBottomOf="@id/tvCalories"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:padding="16dp" />
+                        <TextView
+                            android:id="@+id/tvPortion"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Portion"
+                            android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
+                            android:gravity="end"/>
+                    </LinearLayout>
 
-    <!-- Notes -->
-    <TextView
-        android:id="@+id/tvNotes"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="Notes"
-        android:textSize="14sp"
-        app:layout_constraintTop_toBottomOf="@id/tvCalcium"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:padding="16dp" />
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="?android:attr/listDivider"
+                        android:layout_marginVertical="8dp"/>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+                    <!-- Nutrition Information -->
+                    <TextView
+                        android:id="@+id/tvNutritionInfo"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Nutrition Information"
+                        android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
+                        android:textColor="@color/colorPrimary"
+
+                        android:textStyle="bold"
+                        android:layout_marginBottom="8dp"/>
+
+
+
+                    <LinearLayout
+                        android:id="@+id/nutritionDetails"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:orientation="vertical"
+                        app:layout_constraintTop_toBottomOf="@id/nutritionTitle">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:text="Carbohydrates"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:textColor="@color/colorOnSurface" />
+
+                            <TextView
+                                android:id="@+id/tvCarbohydrates"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="864.8"
+                                android:textColor="@color/colorPrimary"
+                                android:textStyle="bold" />
+                        </LinearLayout>
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_marginVertical="8dp"
+                            android:background="@color/colorDivider" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="Protein"
+                                android:textColor="@color/colorOnSurface" />
+
+                            <TextView
+                                android:id="@+id/tvProteins"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="19.0"
+                                android:textColor="@color/colorPrimary"
+                                android:textStyle="bold" />
+                        </LinearLayout>
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_marginVertical="8dp"
+                            android:background="@color/colorDivider" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="Fat"
+                                android:textColor="@color/colorOnSurface" />
+
+                            <TextView
+                                android:id="@+id/tvFats"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="61.2"
+                                android:textColor="@color/colorPrimary"
+                                android:textStyle="bold" />
+                        </LinearLayout>
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_marginVertical="8dp"
+                            android:background="@color/colorDivider" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="Calories"
+                                android:textColor="@color/colorOnSurface" />
+
+                            <TextView
+                                android:id="@+id/tvCalories"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="92.5"
+                                android:textColor="@color/colorPrimary"
+                                android:textStyle="bold" />
+                        </LinearLayout>
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_marginVertical="8dp"
+                            android:background="@color/colorDivider" />
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="Calcium"
+                                android:textColor="@color/colorOnSurface" />
+
+                            <TextView
+                                android:id="@+id/tvCalcium"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="92.5"
+                                android:textColor="@color/colorPrimary"
+                                android:textStyle="bold" />
+                        </LinearLayout>
+                    </LinearLayout>
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="?android:attr/listDivider"
+                        android:layout_marginVertical="8dp"/>
+
+                    <!-- Notes -->
+                    <TextView
+                        android:id="@+id/tvNotesTitle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/colorPrimary"
+                        android:text="Notes"
+                        android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
+                        android:textStyle="bold"
+                        android:layout_marginBottom="8dp"/>
+
+                    <TextView
+                        android:id="@+id/tvNotes"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="No additional notes"
+                        android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
+                        android:textColor="?android:attr/textColorSecondary"/>
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

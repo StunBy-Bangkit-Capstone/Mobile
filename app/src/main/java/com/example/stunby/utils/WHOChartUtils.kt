@@ -16,6 +16,7 @@ object WHOChartUtils {
         chartType: String,
         sdData: Map<Int, List<Float>>,
         childEntries: List<Entry>,
+        minRange: Float,
         axisMonth: Float,
     ) {
         chart.apply {
@@ -37,7 +38,7 @@ object WHOChartUtils {
             setDrawAxisLine(true)
             setDrawLabels(true)
             granularity = 1f
-            axisMinimum = 0f
+            axisMinimum = minRange
             axisMaximum = axisMonth
             valueFormatter = object : ValueFormatter() {
                 override fun getFormattedValue(value: Float): String {
@@ -71,8 +72,11 @@ object WHOChartUtils {
             circleRadius = 5f
             lineWidth = 2f
             mode = LineDataSet.Mode.CUBIC_BEZIER // Smooth line
-            setDrawValues(false)
+            setDrawValues(true) // Menampilkan nilai pada tiap titik
+            setDrawValues(true) // Menampilkan nilai pada tiap titik
             setDrawCircles(true)
+            valueTextColor = Color.BLACK // Warna teks nilai
+            valueTextSize = 10f // Ukuran teks nilai
         }
 
         val dataSets = whoData + childDataSet
@@ -110,7 +114,9 @@ object WHOChartUtils {
                 this.color = color
                 lineWidth = 2f
                 setDrawCircles(false)
-                setDrawValues(false)
+                setDrawValues(true) // Menampilkan nilai pada titik WHO
+                valueTextColor = color // Menggunakan warna yang sama dengan garis
+                valueTextSize = 8f
                 if (sd == 0) {
                     enableDashedLine(10f, 5f, 0f) // Dashed line for the median
                 }

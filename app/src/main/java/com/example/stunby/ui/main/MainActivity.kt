@@ -10,7 +10,7 @@ import androidx.navigation.ui.setupWithNavController
 import com.example.stunby.R
 import com.example.stunby.databinding.ActivityMainBinding
 import com.example.stunby.ui.ViewModelFactory
-import com.example.stunby.ui.welcome.WelcomeActivity
+import com.example.stunby.ui.login.LoginActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : AppCompatActivity() {
@@ -28,7 +28,7 @@ class MainActivity : AppCompatActivity() {
 
             viewModel.getSession().observe(this) { user ->
                 if (!user.isLogin) {
-                    startActivity(Intent(this, WelcomeActivity::class.java))
+                    startActivity(Intent(this, LoginActivity::class.java))
                     finish()
                 }
             }

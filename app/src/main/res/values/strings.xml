@@ -55,7 +55,7 @@
     <string name="label_gender">Gender</string>
     <string name="chart_title">chart_title</string>
     <string name="last_update">Last update</string>
-    <string name="date">12 Desember 2024 (2 months 3 days)</string>
+    <string name="date">12 Desember 2024 </string>
     <string name="kg">kg</string>
     <string name="value_weight">8,8</string>
     <string name="weight">Tinggi</string>
@@ -76,7 +76,7 @@
     <string name="notification">Notification</string>
     <string name="recovery">Recovery</string>
     <string name="hint_age">Age</string>
-    <string name="hint_date">Growth date</string>
+    <string name="hint_date">Measurement Date</string>
     <string name="berat_numur">(BB/U)</string>
     <string name="berat_umur">Berat/Umur</string>
     <string name="tinggi_umur">Tinggi/Umur</string>

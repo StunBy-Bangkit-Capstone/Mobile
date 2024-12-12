@@ -57,7 +57,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
-                android:text="Kamu makan apa hari ini? Yuk, cek rekomendasi nutrisinya!"
+                android:text="Sikecil makan apa hari ini? Yuk, cek rekomendasi nutrisinya!"
                 android:textAlignment="center"
                 android:textColor="@color/primaryText"
                 android:textSize="16sp"/>
@@ -84,7 +84,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:hint="Porsi"
+                android:hint="Porsi(100gr)"
                 app:boxCornerRadiusBottomEnd="10dp">
 
                 <com.google.android.material.textfield.TextInputEditText
