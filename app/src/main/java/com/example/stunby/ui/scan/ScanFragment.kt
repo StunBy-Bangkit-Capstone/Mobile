@@ -69,6 +69,11 @@ class ScanFragment : Fragment() {
 
     @RequiresApi(Build.VERSION_CODES.Q)
     private fun addMeasure() {
+
+        viewModel.isLoading.observe(this) { isLoading ->
+            showLoading(isLoading)
+        }
+
         currentImageUri?.let { uri ->
             val imageFile = uriToFile(uri, requireContext()).reduceFileImage()
             Log.d("Image File", "showImage: ${imageFile.path}")
@@ -118,6 +123,25 @@ class ScanFragment : Fragment() {
         } ?: showToast(getString(R.string.empty_image_warning))
     }
 
+    private fun showLoading(loading: Boolean?): Boolean? {
+
+        binding.measurementButton.isEnabled = !loading!!
+        binding.galleryButton.isEnabled = !loading
+        binding.cameraButton.isEnabled = !loading
+        binding.spinnerAktivitasLevel.isEnabled = !loading
+        binding.spinnerStatusAsi.isEnabled = !loading
+        binding.edAge.isEnabled = !loading
+        binding.edWeight.isEnabled = !loading
+        binding.edDate.isEnabled = !loading
+        binding.progressBar.visibility = if (loading) {
+            View.VISIBLE
+        } else {
+            View.GONE
+        }
+        return loading
+
+    }
+
 
     private fun showToast(message: String) {
         Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
@@ -138,7 +162,7 @@ class ScanFragment : Fragment() {
                 val age = withContext(Dispatchers.IO) {
                     viewModel.calculateAge(formattedDate)
                 }
-                binding.edAge.setText(age.toString())
+                binding.edAge.setText(age)
             }
         }, year, month, day).show()
     }

@@ -43,16 +43,14 @@ class DetailNutritionActivity : AppCompatActivity() {
             nutrition?.let { nutritionData ->
                 Log.d("DetailNutritionActivity", "setupObservers: $nutritionData")
                 binding.tvFoodName.text = nutritionData.food_name
-                binding.tvDate.text = nutritionData.date
-                binding.tvPortion.text = nutritionData.portion.toString()
-                binding.tvCreatedAt.text = nutritionData.created_at
-                binding.tvUpdatedAt.text = nutritionData.updated_at
-                binding.tvCalories.text = nutritionData.nutrition_result?.calories.toString()
-                binding.tvProteins.text = nutritionData.nutrition_result?.proteins.toString()
-                binding.tvFats.text = nutritionData.nutrition_result?.fats.toString()
-                binding.tvCarbohydrates.text = nutritionData.nutrition_result?.carbohydrates.toString()
-                binding.tvCalcium.text = nutritionData.nutrition_result?.calciums.toString()
-                binding.tvNotes.text = nutritionData.nutrition_result?.notes
+binding.tvDate.text = nutritionData.date
+binding.tvPortion.text = "${nutritionData.portion} gr"
+binding.tvCalories.text = "${nutritionData.nutrition_result?.calories} gr"
+binding.tvProteins.text = "${nutritionData.nutrition_result?.proteins} gr"
+binding.tvFats.text = "${nutritionData.nutrition_result?.fats} gr"
+binding.tvCarbohydrates.text = "${nutritionData.nutrition_result?.carbohydrates} gr"
+binding.tvCalcium.text = "${nutritionData.nutrition_result?.calciums} gr"
+binding.tvNotes.text = nutritionData.nutrition_result?.notes
             }
         }
 

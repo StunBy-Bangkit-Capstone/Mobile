@@ -15,6 +15,19 @@
         android:theme="@style/Theme.StunBy"
         tools:targetApi="31">
         <activity
+            android:name=".ui.splash.SplashActivity"
+            android:exported="true"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+            android:launchMode="singleTask"
+            android:configChanges="orientation|keyboardHidden|keyboard|screenSize"
+            android:windowSoftInputMode="adjustResize">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <activity
             android:name=".ui.nutrition.detail.DetailNutritionActivity"
             android:exported="false" />
         <activity
@@ -27,9 +40,6 @@
             android:name=".ui.detail.DetailActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.welcome.WelcomeActivity"
-            android:exported="false" />
-        <activity
             android:name=".ui.signup.SignupActivity"
             android:exported="false" />
         <activity
@@ -38,13 +48,8 @@
             android:label="@string/title_activity_login" />
         <activity
             android:name=".ui.main.MainActivity"
-            android:exported="true"
+            android:exported="false"
             android:label="@string/app_name">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
     </application>
 

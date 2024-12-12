@@ -8,11 +8,18 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.lifecycle.lifecycleScope
 import com.bumptech.glide.Glide
 import com.example.stunby.R
 import com.example.stunby.databinding.FragmentHomeBinding
 import com.example.stunby.databinding.FragmentProfileBinding
 import com.example.stunby.ui.ViewModelFactory
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
+import java.time.temporal.ChronoUnit
 
 class ProfileFragment : Fragment() {
     private var _binding: FragmentProfileBinding? = null
@@ -26,10 +33,6 @@ class ProfileFragment : Fragment() {
 
     companion object {
         fun newInstance() = ProfileFragment()
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
     }
 
     override fun onCreateView(
@@ -50,11 +53,38 @@ class ProfileFragment : Fragment() {
 
         viewModel.user.observe(viewLifecycleOwner) {
             binding.tvName.text = it.fullName
-            Glide.with(this)
-                .load(it.fotoUrl)
-                .circleCrop()
-                .into(binding.ivProfile)
+            val birthDate = it.birthDay
+            val dateNow = LocalDate.now().toString()
+            calculateAge(birthDate, dateNow)
+
+            lifecycleScope.launch {
+                val fotoUrl = withContext(Dispatchers.IO) {
+                    it.fotoUrl
+                }
+                Glide.with(this@ProfileFragment)
+                    .load(fotoUrl)
+                    .circleCrop()
+                    .into(binding.ivProfile)
+            }
         }
+    }
+
+    private fun calculateAge(birthDate: String?, dateMeasure: String?) {
+        if (birthDate == null || dateMeasure == null) {
+            binding.tvAge.text = "Tanggal tidak valid"
+            return
+        }
+
+        val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
+        val birthLocalDate = LocalDate.parse(birthDate, formatter)
+        val measureLocalDate = LocalDate.parse(dateMeasure, formatter)
+
+        val years = ChronoUnit.YEARS.between(birthLocalDate, measureLocalDate).toInt()
+        val months = ChronoUnit.MONTHS.between(birthLocalDate.plusYears(years.toLong()), measureLocalDate).toInt()
+        val days = ChronoUnit.DAYS.between(birthLocalDate.plusYears(years.toLong()).plusMonths(months.toLong()), measureLocalDate).toInt()
+
+        val ageString = "$years Tahun $months Bulan $days Hari"
+        binding.tvAge.text = ageString
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

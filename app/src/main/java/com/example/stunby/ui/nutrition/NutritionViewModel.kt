@@ -26,7 +26,7 @@ class NutritionViewModel (private val repository: UserRepository) : ViewModel() 
     val nutritionResult: LiveData<Result<NutritionResponse>> = _nutritionResult
 
 
-    fun addNutrition(food_name: String,portion: Int,date: String){
+    fun addNutrition(food_name: String,portion: Double,date: String){
 //        _isLoading.value = true
         viewModelScope.launch {
             try {

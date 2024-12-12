@@ -90,7 +90,7 @@ interface ApiService {
         @Header("Authorization") token: String,
         @Field("food_name") food_name: String,
         @Field("date") date: String,
-        @Field("portion") portion: Int
+        @Field("portion") portion: Double
     ): NutritionResponse
 
 
