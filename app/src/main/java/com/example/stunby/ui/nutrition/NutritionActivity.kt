@@ -64,7 +64,6 @@ class NutritionActivity : AppCompatActivity() {
                         val intent = Intent(this, DetailNutritionActivity::class.java).apply {
                             putExtra("key_id", measureId)
                             // Tambahkan flag untuk menghapus fragment stack
-                            flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
                         }
                         startActivity(intent)
                     } else {
