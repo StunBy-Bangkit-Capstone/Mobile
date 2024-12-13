@@ -1,5 +1,6 @@
 package com.example.stunby.data.remote.retrofit
 
+import com.example.stunby.BuildConfig
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -8,7 +9,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 
 object ApiConfig {
-    private const val BASE_URL = "https://stunby-app-567211939480.asia-southeast2.run.app/api/"
+    private const val BASE_URL = BuildConfig.BASE_URL
 
 
     fun getApiService(token: String? = null): ApiService {

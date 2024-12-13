@@ -8,6 +8,8 @@ android {
     compileSdk = 34
 
     defaultConfig {
+        buildConfigField("String", "BASE_URL", "\"https://stunby-app-567211939480.asia-southeast2.run.app/api/\"")
+
         applicationId = "com.example.stunby"
         minSdk = 26
         targetSdk = 34
@@ -18,7 +20,9 @@ android {
     }
 
     buildTypes {
+
         release {
+
             isMinifyEnabled = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),

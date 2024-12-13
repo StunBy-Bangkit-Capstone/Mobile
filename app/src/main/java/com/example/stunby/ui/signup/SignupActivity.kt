@@ -49,7 +49,7 @@ class SignupActivity : AppCompatActivity() {
                     if (!response.error!!) {
                         AlertDialog.Builder(this).apply {
                             setTitle("Yeah!")
-                            setMessage("${response.message}. Yuk, login dan belajar coding.")
+                            setMessage("${response.message}. Silahkan login untuk melanjutkan")
                             setPositiveButton("Lanjut") { _, _ ->
                                 finish()
                             }
