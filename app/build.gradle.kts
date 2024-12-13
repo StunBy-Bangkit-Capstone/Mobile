@@ -8,8 +8,7 @@ android {
     compileSdk = 34
 
     defaultConfig {
-        buildConfigField("String", "BASE_URL", "\"https://stunby-app-567211939480.asia-southeast2.run.app/api/\"")
-
+        buildConfigField("String", "BASE_URL", "\"${project.findProperty("BASE_URL") ?: "https://default-url.com"}\"")
         applicationId = "com.example.stunby"
         minSdk = 26
         targetSdk = 34
